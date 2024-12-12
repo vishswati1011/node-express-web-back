@@ -22,7 +22,7 @@
   },
   "nodemonConfig": {
     "restartable": "rs",
-    "delay": 2000,
+    "delay": 1000,
     "env": {
       "PORT": 4000
     }
