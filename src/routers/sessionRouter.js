@@ -1,8 +1,16 @@
 const  express = require('express');
 const sessionData = require('../data/sessions.json')
 const {MongoClient,ObjectId} = require("mongodb")
-
+const speakersService = require('../services/speakerService')
 const sessionRouter = express.Router();
+
+sessionRouter.use((req,res,next)=>{
+    if(req.user){
+        next();
+    }else{
+        res.redirect('/auth/signIn')
+    }
+})
 
 sessionRouter.route('/')
     .get((req,res)=>{
@@ -46,6 +54,9 @@ sessionRouter.route('/:id')
                 const db = client.db(dbName);
     
                 const session =await  db.collection('sessions').findOne({_id: new ObjectId(id)});
+
+                const speaker= await speakersService.getSpeakerById(session.speakers[0].id);
+                session.speacker = speaker.data;
                 // console.log("sessions data",sessions?.[0])
                 await  res.render('session', {
                     session

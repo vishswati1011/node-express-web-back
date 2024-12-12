@@ -4,3 +4,10 @@
 
 1. npm i ejs
 
+
+Securing your application 
+
+1. creating Users
+2. Authentication
+3. Authorization
+4. Passport
